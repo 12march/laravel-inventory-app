@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Category;
+use App\Customer;
 use Illuminate\Http\Request;
 
-class CategoriesController extends Controller
+class CustomersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +13,9 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $customers = Customer::all();
 
-        return $categories;
+        return $customers;
     }
 
     /**
@@ -38,16 +37,23 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'address' => 'required',
+            'address' => 'required'
         ]);
 
-        $category = new Category([
-            'name' => $request->input('name')
+        $customer = new Customer([
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'email' => $request->input('email'),
+            'address' => $request->input('address'),
+            'phone' => $request->input('phone')
         ]);
+        $customer->save();
 
-        $category->save();
-
-        return $category;
+        return $items;
     }
 
     /**
@@ -58,7 +64,9 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        //
+        $customer = Customer::find($id);
+
+        return $customer;
     }
 
     /**
@@ -82,16 +90,23 @@ class CategoriesController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'address' => 'required',
+            'address' => 'required'
         ]);
 
-        $category = Category::find($id, [
-            'name' => $request->input('name'),
+        $customer = Customer::find($id, [
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'email' => $request->input('email'),
+            'address' => $request->input('address'),
+            'phone' => $request->input('phone')
         ]);
-        $category->save();
+        $item->save();
 
-        return $category;
-        
+        return $customer;
     }
 
     /**
@@ -102,9 +117,9 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::find($id);
-        $category->delete();
+        $customer = Customer::find($id);
+        $customer->delete();
 
-        return $category;
+        return $customer;
     }
 }

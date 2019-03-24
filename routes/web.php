@@ -19,6 +19,9 @@ Route::resource('/categories', 'CategoriesController');
 
 Route::resource('/items', 'ItemsController');
 
+Route::resource('/customers', 'CustomersController');
+
+
 
 Auth::routes();
 

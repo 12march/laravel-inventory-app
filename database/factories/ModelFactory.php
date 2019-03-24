@@ -1,6 +1,7 @@
 <?php
 
 use App\Item;
+use App\Customer;
 use Faker\Generator as Faker;
 
 $factory->define(Item::class, function (Faker $faker) {
@@ -13,5 +14,17 @@ $factory->define(Item::class, function (Faker $faker) {
         'price' => $price,
         'cost_price' => $cost_price,
         'quantity' => $faker->numberBetween(5,20),
+    ];
+});
+
+
+$factory->define(Customer::class, function (Faker $faker) {
+
+    return [
+        'first_name' => $faker->firstname,
+        'last_name' => $faker->lastname,
+        'email' => $faker->unique()->safeEmail,
+        'address' => $faker->address,
+        'phone' => $faker->phoneNumber,
     ];
 });
