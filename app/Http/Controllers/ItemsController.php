@@ -16,7 +16,10 @@ class ItemsController extends Controller
     {
         $items = Item::all();
 
-        return $items;
+        //numbering results
+        $no = 1;
+
+        return view('items', compact('no', 'items'));
     }
 
     /**
@@ -54,7 +57,7 @@ class ItemsController extends Controller
         ]);
         $items->save();
 
-        return $items;
+        return redirect('/items');
     }
 
     /**
@@ -107,7 +110,7 @@ class ItemsController extends Controller
         ]);
         $item->save();
 
-        return $item;
+        return redirect('/items');
     }
 
     /**
@@ -121,6 +124,6 @@ class ItemsController extends Controller
         $item = Item::find($id);
         $item->delete();
 
-        return $item;
+        return redirect('/items');
     }
 }

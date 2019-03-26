@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+    
 use App\Customer;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,10 @@ class CustomersController extends Controller
     {
         $customers = Customer::all();
 
-        return $customers;
+        //numbering results
+        $no = 1;
+
+        return view('customers', compact('no', 'cutomers'));
     }
 
     /**

@@ -11,10 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/f', function () {
+    return view('categories');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
+
+Route::get('/d', function () {
+    return view('items');
+});
 Route::resource('/categories', 'CategoriesController');
 
 Route::resource('/items', 'ItemsController');

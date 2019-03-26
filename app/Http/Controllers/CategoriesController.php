@@ -16,7 +16,10 @@ class CategoriesController extends Controller
     {
         $categories = Category::all();
 
-        return $categories;
+        //numbering results
+        $no = 1;
+
+        return view('categories', compact('no', 'categories'));
     }
 
     /**
@@ -47,7 +50,7 @@ class CategoriesController extends Controller
 
         $category->save();
 
-        return $category;
+        return redirect('/categories');
     }
 
     /**
@@ -81,16 +84,11 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required',
-        ]);
 
-        $category = Category::find($id, [
-            'name' => $request->input('name'),
-        ]);
-        $category->save();
+        $category = Category::find($id);
+        $category->update($request->all());
 
-        return $category;
+        return redirect('/categories');
         
     }
 
@@ -105,6 +103,6 @@ class CategoriesController extends Controller
         $category = Category::find($id);
         $category->delete();
 
-        return $category;
+        return redirect('/categories');
     }
 }
