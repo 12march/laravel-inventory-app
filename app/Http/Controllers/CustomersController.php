@@ -19,7 +19,7 @@ class CustomersController extends Controller
         //numbering results
         $no = 1;
 
-        return view('customers', compact('no', 'cutomers'));
+        return view('customers', compact('no', 'customers'));
     }
 
     /**
@@ -57,7 +57,7 @@ class CustomersController extends Controller
         ]);
         $customer->save();
 
-        return $items;
+        return redirect('/customers');
     }
 
     /**
@@ -93,24 +93,10 @@ class CustomersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required',
-            'address' => 'required',
-            'address' => 'required'
-        ]);
+        $customer = Customer::find($id);
+        $customer->update($request->all());;
 
-        $customer = Customer::find($id, [
-            'first_name' => $request->input('first_name'),
-            'last_name' => $request->input('last_name'),
-            'email' => $request->input('email'),
-            'address' => $request->input('address'),
-            'phone' => $request->input('phone')
-        ]);
-        $item->save();
-
-        return $customer;
+        return redirect('/customers');
     }
 
     /**
@@ -124,6 +110,6 @@ class CustomersController extends Controller
         $customer = Customer::find($id);
         $customer->delete();
 
-        return $customer;
+        return redirect('/customers');
     }
 }
