@@ -12,7 +12,7 @@ class Category extends Model
     /**
      * Relationships
      */
-    public function items()
+    public function item()
     {
         return $this->hasMany(Item::class);
     }

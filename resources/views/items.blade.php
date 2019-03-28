@@ -34,10 +34,8 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Position</th>
                                     <th>Category</th>
-                                    <th>Age</th>
-                                    <th>Available Product</th>
+                                    <th>Cost Price</th>
                                     <th>Price</th>
                                     <th>Action</th>
                                 </tr>
@@ -49,12 +47,9 @@
                                     <tr>
                                         <td>{{ $no }}</td>
                                         <td>{{ $item->name }}</td>
-                                        <td>{{ $item->category_id }}</td>
-                                        <td>computer</td>
-                                        <td>Dell Latitude l520</td>
-                                        <td>
-                                        3                                    </td>
-                                        <td>₦55,000</td>
+                                        <td>{{ $item->category->name }}</td>
+                                        <td>₦{{ $item->cost_price }}</td>
+                                        <td>₦{{ $item->price }}</td>
                                         <td>
                                         <span id="delete" data-toggle="modal" data-target="#exampleModal{{ $item->id }}" data-whatever="@mdo"><i class='fa fa-trash fa-lg'></i></span>
                                         &nbsp;
@@ -77,21 +72,22 @@
                                             </div>
                                             <div class="modal-body">
 
-                                                <form action="" method="POST">
+                                                <form action="/items/{{ $item->id }}" method="POST">
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="col-form-label">Product Name:</label>
-                                                                <input type="text" name="product_name" class="form-control" value="" required>
+                                                                <input type="text" name="name" class="form-control" value="{{ $category->name }}" required>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="col-form-label">Category:</label>
                                                                 <select name="category" class="form-control" id="exampleFormControlSelect1" required>
-                                                                        <option value="c">cc</option>
-
-                                                                    
+                                                                    <option>-- Select Category --</option>
+                                                                    @foreach ($categories as $category)
+                                                                        <option value="{{ $category->id }}">{{ $category->name }} <option>
+                                                                    @endforeach
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -194,22 +190,24 @@
                 </div>
                 <div class="modal-body">
 
-                    <form action="" method="POST">
+                    <form action="{{ url('/items') }}" method="POST">
+                        @csrf
+                        
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Product Name:</label>
-                                    <input type="text" name="product_name" class="form-control" required>
+                                    <input type="text" name="name" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Category:</label>
-                                    <select name="category" class="form-control" id="exampleFormControlSelect1" required>
-                                            <option>-- Select Category --</option>
-
-                                        
-
+                                    <select name="category_id" class="form-control" id="exampleFormControlSelect1" required>
+                                        <option>-- Select Category --</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }} <option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -223,7 +221,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Selling Price:</label>
-                                    <input type="text" name="selling_price" class="form-control" required>
+                                    <input type="text" name="price" class="form-control" required>
                                 </div>
                             </div>
 
@@ -233,17 +231,11 @@
                                     <input type="text" name="quantity" class="form-control" required>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Minimum Quantity:</label>
-                                    <input type="text" name="minimum" class="form-control" required>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" name="add_inventory" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
 
                     </form>

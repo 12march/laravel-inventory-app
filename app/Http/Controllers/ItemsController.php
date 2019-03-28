@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use App\Category;
 use Illuminate\Http\Request;
 
 class ItemsController extends Controller
@@ -16,10 +17,12 @@ class ItemsController extends Controller
     {
         $items = Item::all();
 
+        $categories = Category::all();
+
         //numbering results
         $no = 1;
 
-        return view('items', compact('no', 'items'));
+        return view('items', compact('no', 'items', 'categories'));
     }
 
     /**
