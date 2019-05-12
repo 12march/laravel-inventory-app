@@ -73,18 +73,22 @@
                                             <div class="modal-body">
 
                                                 <form action="/items/{{ $item->id }}" method="POST">
+                                                    @csrf
+
+                                                    <input type="hidden" name="_method" value="PUT">
+
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="col-form-label">Product Name:</label>
-                                                                <input type="text" name="name" class="form-control" value="{{ $category->name }}" required>
+                                                                <input type="text" name="name" class="form-control" value="{{ $item->name }}" required>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="col-form-label">Category:</label>
-                                                                <select name="category" class="form-control" id="exampleFormControlSelect1" required>
-                                                                    <option>-- Select Category --</option>
+                                                                <select name="category_id" class="form-control" id="exampleFormControlSelect1" required>
+                                                                        <option value="{{ $item->category->id }}">{{ $item->category->name }}</option>
                                                                     @foreach ($categories as $category)
                                                                         <option value="{{ $category->id }}">{{ $category->name }} <option>
                                                                     @endforeach
@@ -95,33 +99,27 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="col-form-label">Cost Price:</label>
-                                                                <input type="text" name="cost_price" class="form-control" value="" required>
+                                                                <input type="text" name="cost_price" class="form-control" value="{{ $item->cost_price }}" required>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="col-form-label">Selling Price:</label>
-                                                                <input type="text" name="selling_price" class="form-control" value="" required>
+                                                                <input type="text" name="price" class="form-control" value="{{ $item->price }}" required>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="col-form-label">Quantity:</label>
-                                                                <input type="text" name="quantity" class="form-control" value="" required>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="recipient-name" class="col-form-label">Minimum Quantity:</label>
-                                                                <input type="text" name="minimum" class="form-control" value="" required>
+                                                                <input type="text" name="quantity" class="form-control" value="{{ $item->quantity }}" required>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="submit" name="add_inventory" class="btn btn-primary">Submit</button>
+                                                        <button type="submit" class="btn btn-primary">Submit</button>
                                                     </div>
 
                                                 </form>
